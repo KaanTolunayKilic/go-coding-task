@@ -14,21 +14,6 @@ type Client struct {
 	httpClient *http.Client
 }
 
-type Post struct {
-	ID     int
-	UserID int
-	Title  string
-	Body   string
-}
-
-type Comment struct {
-	ID     int
-	PostID int
-	Name   string
-	Email  string
-	Body   string
-}
-
 func NewClient(httpClient *http.Client) Client {
 	url, _ := url.Parse(apiURL)
 	if httpClient == nil {
