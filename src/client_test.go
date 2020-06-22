@@ -44,11 +44,16 @@ func TestListUserPosts(t *testing.T) {
 		t.Errorf("Expected only one post: len(posts) == %d", len(posts))
 	}
 
-	if posts[0].Body != "Lorem Ipsum Dolor" {
-		t.Errorf("Expected post body: 'Lorem Ipsum Dolor' == %s", posts[0].Body)
+	expect := Post{
+		ID:     1,
+		UserID: 1,
+		Title:  "Mr. Robot",
+		Body:   "Lorem Ipsum Dolor",
 	}
+	actual := posts[0]
 
-	if posts[0].Title != "Mr. Robot" {
-		t.Errorf("Expected title body: 'Mr. Robot' == %s", posts[0].Body)
+	if actual.Body != expect.Body ||
+		actual.Title != expect.Title {
+		t.Errorf("Expect: %v\nActual: %v\n", expect, actual)
 	}
 }
