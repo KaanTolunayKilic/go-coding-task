@@ -22,7 +22,7 @@ func main() {
 	for _, post := range client.posts(*userIDPtr) {
 		PrintPost(post)
 		for _, comment := range client.comments(&post) {
-			if comment.contains(*filterPtr) {
+			if comment.Contains(*filterPtr) {
 				PrintComment(comment)
 			}
 		}
