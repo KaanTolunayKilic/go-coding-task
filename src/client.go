@@ -26,14 +26,11 @@ func NewClient(httpClient *http.Client) Client {
 
 // ListUserPosts requests all post from user
 func (c *Client) ListUserPosts(userID int) ([]Post, error) {
-	params := map[string]string{
-		"userId": fmt.Sprintf("%d", userID),
-	}
-
-	req, err := c.newRequest(http.MethodGet, "/posts", params)
+	req, err := c.newRequest(http.MethodGet, "/posts")
 	if err != nil {
 		return nil, err
 	}
+	addQuery(req, "userId", fmt.Sprintf("%d", userID))
 
 	var posts []Post
 	_, err = c.do(req, &posts)
@@ -42,21 +39,24 @@ func (c *Client) ListUserPosts(userID int) ([]Post, error) {
 
 // ListPostComments requests all comments for post
 func (c *Client) ListPostComments(postID int) ([]Comment, error) {
-	params := map[string]string{
-		"postId": fmt.Sprintf("%d", postID),
-	}
-
-	req, err := c.newRequest(http.MethodGet, "/comments", params)
+	req, err := c.newRequest(http.MethodGet, "/comments")
 	if err != nil {
 		return nil, err
 	}
+	addQuery(req, "postId", fmt.Sprintf("%d", postID))
 
 	var comments []Comment
 	_, err = c.do(req, &comments)
 	return comments, err
 }
 
-func (c *Client) newRequest(method, path string, params map[string]string) (*http.Request, error) {
+func addQuery(r *http.Request, key, val string) {
+	query := r.URL.Query()
+	query.Add(key, val)
+	r.URL.RawQuery = query.Encode()
+}
+
+func (c *Client) newRequest(method, path string) (*http.Request, error) {
 	relPath := &url.URL{Path: path}
 	url := c.BaseURL.ResolveReference(relPath).String()
 
@@ -65,13 +65,6 @@ func (c *Client) newRequest(method, path string, params map[string]string) (*htt
 		return nil, err
 	}
 	req.Header.Set("Accept", "application/json")
-
-	query := req.URL.Query()
-	for key, val := range params {
-		query.Add(key, val)
-	}
-	req.URL.RawQuery = query.Encode()
-
 	return req, nil
 }
 
