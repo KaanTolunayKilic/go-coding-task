@@ -31,7 +31,7 @@ func main() {
 }
 
 func (c *Client) comments(p *Post) []Comment {
-	comments, err := c.PostComments(p.ID)
+	comments, err := c.ListPostComments(p.ID)
 	if err != nil {
 		log.Fatalf("Could not request comments for post with id %d: %s", p.ID, err)
 	}
@@ -39,7 +39,7 @@ func (c *Client) comments(p *Post) []Comment {
 }
 
 func (c *Client) posts(userID int) []Post {
-	posts, err := c.UserPosts(userID)
+	posts, err := c.ListUserPosts(userID)
 	if err != nil {
 		log.Fatalf("Could not request posts for user with id %d: %s", userID, err)
 	}

@@ -2,6 +2,7 @@ package main
 
 import "strings"
 
+// Post struct for post
 type Post struct {
 	ID     int
 	UserID int
@@ -9,6 +10,7 @@ type Post struct {
 	Body   string
 }
 
+// Comment struct for comment
 type Comment struct {
 	ID     int
 	PostID int

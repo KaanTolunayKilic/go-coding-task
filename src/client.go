@@ -9,11 +9,13 @@ import (
 
 const apiURL string = "https://jsonplaceholder.typicode.com"
 
+// Client struct to make request
 type Client struct {
 	BaseURL    *url.URL
 	httpClient *http.Client
 }
 
+// NewClient creats new client
 func NewClient(httpClient *http.Client) Client {
 	url, _ := url.Parse(apiURL)
 	if httpClient == nil {
@@ -22,9 +24,10 @@ func NewClient(httpClient *http.Client) Client {
 	return Client{httpClient: httpClient, BaseURL: url}
 }
 
-func (c *Client) UserPosts(userId int) ([]Post, error) {
+// ListUserPosts requests all post from user
+func (c *Client) ListUserPosts(userID int) ([]Post, error) {
 	params := map[string]string{
-		"userId": fmt.Sprintf("%d", userId),
+		"userId": fmt.Sprintf("%d", userID),
 	}
 
 	req, err := c.newRequest(http.MethodGet, "/posts", params)
@@ -37,9 +40,10 @@ func (c *Client) UserPosts(userId int) ([]Post, error) {
 	return posts, err
 }
 
-func (c *Client) PostComments(postId int) ([]Comment, error) {
+// ListPostComments requests all comments for post
+func (c *Client) ListPostComments(postID int) ([]Comment, error) {
 	params := map[string]string{
-		"postId": fmt.Sprintf("%d", postId),
+		"postId": fmt.Sprintf("%d", postID),
 	}
 
 	req, err := c.newRequest(http.MethodGet, "/comments", params)
