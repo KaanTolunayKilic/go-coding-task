@@ -1,6 +1,6 @@
 # Coding Task
 
-Write an command line tool for receiving dummy post data from JSONPlaceholder (https://jsonplaceholder.typicode.com)
+Write an command line tool for receiving dummy post data from the api endpoint JSONPlaceholder (https://jsonplaceholder.typicode.com)
 
 ## Build
 
