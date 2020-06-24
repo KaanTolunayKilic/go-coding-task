@@ -60,7 +60,7 @@ func (c *Client) newRequest(method, path string) (*http.Request, error) {
 	relPath := &url.URL{Path: path}
 	url := c.BaseURL.ResolveReference(relPath).String()
 
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return nil, err
 	}
