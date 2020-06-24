@@ -8,6 +8,6 @@ Clone repository and change current directory to go-coding-task/src. Run `go bui
 
 ## Usage 
 
-`./bin/go-clie -userId :userId [-filter :filter]`
+`./bin/go-cli -userId :userId [-filter :filter]`
 * userId: must be of type int
 * filter: filters comments from the post data
